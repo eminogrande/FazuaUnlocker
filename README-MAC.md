@@ -13,7 +13,7 @@ Tested on 2026-10-16 on a Canyon Roadlite:ON AL 7.0 (2020), FAZUA RIDE 50 EVATIO
 ```mermaid
 flowchart LR
     A[Drivepack on FW 2.50] -->|FAZUA Toolbox: FIRMWARE UPDATE, MANUAL, 2.04 file| B[FW 2.04]
-    B -->|fazua_mac.py --read-only| C[read config + backup]
+    B -->|fazua_mac.py --read-only| C[read config, save output separately]
     C -->|fazua_mac.py 55 --force| D[bikeMaxSpeed 55 km/h]
     D -->|insert into bike| E[remote updates itself, white LEDs flash]
     E --> F[green: ready]
@@ -37,6 +37,31 @@ flowchart LR
 5. Unplug, screw the USB cap back on (1 to 1.5 Nm, the Drivepack is not waterproof without it), insert into the bike. The remote may flash white while it updates itself. Do not touch it. When it shows green it is ready.
 
 Back to stock: `.venv/bin/python fazua_mac.py 25 --force`.
+
+## Update, 2026-10-18: raw value 1938
+
+Updated by Hermes Agent for Emin Mahrt. The original 2026-10-16 result above was raw 1528, displayed as 55.01 km/h. The later setting is raw 1938, chosen for my father's birth year. Its exact conversion is 69.768 km/h, displayed as 69.77 km/h. Firmware remains 2.04 and wheel length remains 2121 mm. This is a stored assistance cutoff, not a measured riding speed.
+
+The tool converts km/h to an integer using `round(kmh / 0.036)` in `fazua_unlock.py`. To select raw 1938 exactly, use 69.768, not the rounded display value:
+
+```sh
+.venv/bin/python fazua_mac.py --read-only
+.venv/bin/python fazua_mac.py 69.768 --dry-run
+.venv/bin/python fazua_mac.py 69.768 --force
+.venv/bin/python fazua_mac.py --read-only
+```
+
+Read-only prints the configuration; it does not create a backup file. Save its output separately before writing. Check the dry run before continuing. To restore the earlier raw 1528, use `.venv/bin/python fazua_mac.py 55.008 --force`.
+
+```mermaid
+flowchart LR
+    A[Read current configuration] --> B[Save output separately]
+    B --> C[Dry run: raw 1938]
+    C --> D[Write only after checking]
+    D --> E[Separate readback: raw 1938, wheel 2121 mm]
+```
+
+In Berlin and want help with a Fazua Ride 50? Contact [emin@emin.de](mailto:emin@emin.de). I help for free. Full account: [Fazua Ride 50 speed unlock from a Mac](https://emin.de/posts/fazua-ride-50-speed-unlock-mac#free-help-in-berlin).
 
 ## Warning
 
