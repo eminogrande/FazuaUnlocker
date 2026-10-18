@@ -61,7 +61,7 @@ flowchart LR
     D --> E[Separate readback: raw 1938, wheel 2121 mm]
 ```
 
-In Berlin and want help with a Fazua Ride 50? Contact [emin@emin.de](mailto:emin@emin.de). I help for free. Full account: [Fazua Ride 50 speed unlock from a Mac](https://emin.de/posts/fazua-ride-50-speed-unlock-mac#free-help-in-berlin).
+If you are in Berlin and interested in unlocking your Fazua Ride 50, feel free to contact me: [emin@emin.de](mailto:emin@emin.de). Full account: [Fazua Ride 50 speed unlock from a Mac](https://emin.de/posts/fazua-ride-50-speed-unlock-mac#berlin).
 
 ## Warning
 
